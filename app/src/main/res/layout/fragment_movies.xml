@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MoviesFragment">
-
+    tools:context=".MoviesFragment"
+    android:orientation="vertical">
     <GridView
         android:id="@+id/gv_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2"
         android:horizontalSpacing="15dp"
-        android:verticalSpacing="15dp"/>
+        android:verticalSpacing="15dp"
+        android:isScrollContainer="false"/>
 </FrameLayout>

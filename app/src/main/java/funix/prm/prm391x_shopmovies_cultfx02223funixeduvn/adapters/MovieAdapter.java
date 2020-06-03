@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.R;
+import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.clients.ImageClient;
+import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.clients.ImageClientHelper;
 import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.models.Movie;
 
 public class MovieAdapter extends ArrayAdapter<Movie> {
@@ -26,7 +28,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         final Movie movie = getItem(position);
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         if(convertView == null){
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) getContext()
@@ -41,6 +43,15 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        ImageClientHelper imageClientHelper = ImageClientHelper.getInstance();
+        imageClientHelper.fetch(movie.getImgUrl(), new ImageClientHelper.OnImageLoad() {
+            @Override
+            public void onLoad(Bitmap bitmap) {
+                viewHolder.ivImage.setImageBitmap(bitmap);
+            }
+        });
+
         viewHolder.tvTitle.setText(movie.getTitle());
         viewHolder.tvPrice.setText(movie.getPrice());
 

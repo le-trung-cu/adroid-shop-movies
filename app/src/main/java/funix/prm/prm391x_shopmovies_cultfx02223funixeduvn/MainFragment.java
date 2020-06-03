@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainFragment extends Fragment {
     private FragmentManager fragmentManager;
+    private Fragment mFragmentActive;
 
     public MainFragment() {
     }
@@ -49,10 +50,18 @@ public class MainFragment extends Fragment {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.item_menu_movies:
-                        fragment = new MoviesFragment();
+                        if(!exitsFragment(MoviesFragment.class.getName())){
+                            fragment = new MoviesFragment();
+                        }else {
+                            fragment = fragmentManager.findFragmentByTag(MoviesFragment.class.getName());
+                        }
                         break;
                     case R.id.item_menu_profile:
-                        fragment = new ProfileFragment();
+                        if(!exitsFragment(ProfileFragment.class.getName())){
+                            fragment = new ProfileFragment();
+                        }else {
+                            fragment = fragmentManager.findFragmentByTag(ProfileFragment.class.getName());
+                        }
                         break;
                 }
                 showFragment(fragment);
@@ -63,27 +72,23 @@ public class MainFragment extends Fragment {
     }
 
     private void showFragment(Fragment fragmentActive) {
-        FragmentTransaction transition = fragmentManager.beginTransaction();
-
-        Class fragmentActiveClass = fragmentActive.getClass();
-
-        Class[] fragmentClasses = {MoviesFragment.class, ProfileFragment.class};
-
-        for (Class fragmentClass : fragmentClasses) {
-            String fragmentTag = fragmentClass.getName();
-            Fragment fragment = fragmentManager.findFragmentByTag(fragmentTag);
-            // hide other fragments
-            if (fragment != null && fragmentClass != fragmentActiveClass) {
-                transition.hide(fragment);
-            }
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if(mFragmentActive != null){
+            transaction.hide(mFragmentActive);
         }
-        // show fragment
-        Fragment fragment = fragmentManager.findFragmentByTag(fragmentActiveClass.getName());
-        if (fragment == null) {
-            transition.add(R.id.fl_contain, fragmentActive, fragmentActiveClass.getName());
-        } else {
-            transition.show(fragment);
+        if(exitsFragment(fragmentActive.getClass().getName())){
+            transaction.show(fragmentActive);
+        }else {
+            transaction.add(R.id.fl_contain, fragmentActive, fragmentActive.getClass().getName());
         }
-        transition.commit();
+
+        transaction.commit();
+
+        mFragmentActive = fragmentActive;
+    }
+
+    private boolean exitsFragment(String fragmentTag){
+        Fragment fragment = fragmentManager.findFragmentByTag(fragmentTag);
+        return fragment != null;
     }
 }
