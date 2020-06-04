@@ -10,4 +10,7 @@
     <string name="sign_out">Sign Out</string>
     <string name="display_name">Display Name:</string>
     <string name="email">Email:</string>
+    <!--    facebook-->
+    <string name="facebook_app_id">850653838760585</string>
+    <string name="fb_login_protocol_scheme">fb850653838760585</string>
 </resources>

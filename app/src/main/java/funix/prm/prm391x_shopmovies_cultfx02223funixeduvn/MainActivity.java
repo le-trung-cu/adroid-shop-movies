@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity
                     signIn();
                 }
             });
+        }else if(mCurrentUser.getAuthProvider().equals(User.FACEBOOK_PROVIDER)) {
+            LoginManager.getInstance().logOut();
+            mCurrentUser = null;
+            signIn();
         }
     }
 

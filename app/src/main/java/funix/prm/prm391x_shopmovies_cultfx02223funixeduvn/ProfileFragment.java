@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.clients.ImageClient;
 import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.clients.ImageClientHelper;
@@ -95,12 +96,16 @@ public class ProfileFragment extends Fragment {
             tvEmail.setText(mUser.getEmail());
             ImageClientHelper imageClientHelper = ImageClientHelper.getInstance();
             if(!mUser.getPhotoUrl().isEmpty()){
-                imageClientHelper.fetch(mUser.getPhotoUrl(), new ImageClientHelper.OnImageLoad() {
-                    @Override
-                    public void onLoad(Bitmap bitmap) {
-                        ivImage.setImageBitmap(bitmap);
-                    }
-                });
+                try {
+                    imageClientHelper.fetch(mUser.getPhotoUrl(), new ImageClientHelper.OnImageLoad() {
+                        @Override
+                        public void onLoad(Bitmap bitmap) {
+                            ivImage.setImageBitmap(bitmap);
+                        }
+                    });
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "user picture erro", Toast.LENGTH_SHORT).show();
+                }
             }
 
             llInfoUer.setVisibility(View.VISIBLE);
