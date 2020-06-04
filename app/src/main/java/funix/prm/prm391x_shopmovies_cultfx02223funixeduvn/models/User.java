@@ -1,10 +1,18 @@
 package funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.models;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringDef;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -30,14 +38,6 @@ public class User {
         this.email = email;
         this.photoUrl = photoUrl;
         this.authProvider = authProvider;
-    }
-
-    public static User getCurrentUser(){
-        return currentUser;
-    }
-
-    public static void signOut(){
-        currentUser = null;
     }
 
     public static void setCurrentUser(User user, Context context){
@@ -90,5 +90,14 @@ public class User {
 
     public String getAuthProvider(){
         return authProvider;
+    }
+
+    public static Task<Void> SignOutGoogle(Activity activity){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(activity, gso);
+
+        return mGoogleSignInClient.signOut();
     }
 }

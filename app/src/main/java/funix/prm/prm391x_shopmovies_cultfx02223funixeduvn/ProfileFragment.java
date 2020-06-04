@@ -1,5 +1,7 @@
 package funix.prm.prm391x_shopmovies_cultfx02223funixeduvn;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.clients.ImageClient;
@@ -23,6 +26,10 @@ public class ProfileFragment extends Fragment {
     private TextView tvDisplayName;
     private TextView tvEmail;
     private ImageView ivImage;
+    private LinearLayout llInfoUer;
+    private LinearLayout llSignIn;
+
+    private OnSigOutListener mListener;
 
     public ProfileFragment() {
     }
@@ -33,11 +40,16 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof OnSigOutListener){
+            mListener = (OnSigOutListener) context;
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(mUser == null){
-            mUser = User.getCurrentUser();
-        }
     }
 
     @Override
@@ -52,29 +64,23 @@ public class ProfileFragment extends Fragment {
         tvDisplayName = view.findViewById(R.id.tv_display_name);
         tvEmail = view.findViewById(R.id.tv_email);
         ivImage = view.findViewById(R.id.iv_image);
-
-        if(mUser != User.getCurrentUser()){
-            mUser = User.getCurrentUser();
-        }
-        tvDisplayName.setText(mUser.getDisplayName());
-        tvEmail.setText(mUser.getEmail());
-
-        ImageClientHelper imageClientHelper = ImageClientHelper.getInstance();
-
-        if(!mUser.getPhotoUrl().isEmpty()){
-            imageClientHelper.fetch(mUser.getPhotoUrl(), new ImageClientHelper.OnImageLoad() {
-                @Override
-                public void onLoad(Bitmap bitmap) {
-                    ivImage.setImageBitmap(bitmap);
-                }
-            });
-        }
+        llInfoUer = view.findViewById(R.id.ll_info_user_sign_in);
+        llSignIn = view.findViewById(R.id.ll_sign_in);
 
         Button btnSignOut = view.findViewById(R.id.btn_sign_out);
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo sign out
+                mListener.onSignOut();
+            }
+        });
+
+        Button btnSignIn = view.findViewById(R.id.btn_sign_in);
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SignInActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -82,6 +88,30 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mUser = User.getCurrentUser(getActivity());
+        if(mUser != null){
 
+            tvDisplayName.setText(mUser.getDisplayName());
+            tvEmail.setText(mUser.getEmail());
+            ImageClientHelper imageClientHelper = ImageClientHelper.getInstance();
+            if(!mUser.getPhotoUrl().isEmpty()){
+                imageClientHelper.fetch(mUser.getPhotoUrl(), new ImageClientHelper.OnImageLoad() {
+                    @Override
+                    public void onLoad(Bitmap bitmap) {
+                        ivImage.setImageBitmap(bitmap);
+                    }
+                });
+            }
+
+            llInfoUer.setVisibility(View.VISIBLE);
+            llSignIn.setVisibility(View.GONE);
+        }else {
+            llInfoUer.setVisibility(View.GONE);
+            llSignIn.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public interface OnSigOutListener{
+        void onSignOut();
     }
 }

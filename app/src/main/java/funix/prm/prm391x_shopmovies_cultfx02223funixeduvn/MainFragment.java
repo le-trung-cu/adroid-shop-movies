@@ -71,6 +71,11 @@ public class MainFragment extends Fragment {
         navigationView.setSelectedItemId(R.id.item_menu_movies);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void showFragment(Fragment fragmentActive) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if(mFragmentActive != null){
