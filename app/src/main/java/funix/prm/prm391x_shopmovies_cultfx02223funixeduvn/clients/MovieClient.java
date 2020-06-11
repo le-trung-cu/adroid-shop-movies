@@ -1,16 +1,10 @@
 package funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.clients;
 
-
 import android.os.AsyncTask;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
-
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;

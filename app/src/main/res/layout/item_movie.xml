@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="@dimen/iv_movie_height"
         android:scaleType="fitXY"
         android:layout_marginBottom="@dimen/margin_normal"
         android:src="@drawable/movie_placeholder"/>
@@ -31,6 +31,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginEnd="@dimen/margin_normal"
-        android:layout_marginBottom="@dimen/margin_normal"
-        android:text="$7"/>
+        android:layout_marginBottom="@dimen/margin_normal"/>
 </LinearLayout>

@@ -1,8 +1,11 @@
 package funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.models;
 
-import javax.json.JsonObject;
+import java.io.Serializable;
 
-public class Movie {
+import javax.json.JsonObject;
+// We want to movie able to pass object movie from the list to this detail view
+// so make our movie class serializable
+public class Movie implements Serializable {
     private String imgUrl;
     private String title;
     private String price;

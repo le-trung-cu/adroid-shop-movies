@@ -106,7 +106,7 @@ public class SignInActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
 
-                                User user = new User(displayName, "email@", photoUrl, User.FACEBOOK_PROVIDER);
+                                User user = new User(displayName, email, photoUrl, User.FACEBOOK_PROVIDER);
                                 User.setCurrentUser(user, getApplicationContext());
                                 Toast.makeText(SignInActivity.this, "Sign In success", Toast.LENGTH_SHORT).show();
                                 finish();

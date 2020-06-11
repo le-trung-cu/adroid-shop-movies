@@ -10,23 +10,23 @@
 
     <ImageView
         android:id="@+id/iv_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/photo_user_size"
+        android:layout_height="@dimen/photo_user_size"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/movie_placeholder" />
-
+        android:layout_marginTop="@dimen/margin_100"
+        android:src="@drawable/ic_baseline_person_24" />
+<!--    android:visibility="gone"-->
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/ll_info_user_sign_in"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minWidth="350dp"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:padding="30dp"
-        android:layout_marginTop="30dp"
-        android:background="@color/cardview_light_background">
+        android:layout_margin="@dimen/margin_normal"
+        android:padding="@dimen/padding_big"
+        android:layout_marginTop="@dimen/margin_big"
+        android:background="@color/design_default_color_on_primary">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -79,18 +79,18 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
-        android:padding="30dp"
-        android:layout_marginTop="30dp"
-        android:background="@color/cardview_light_background">
+        android:padding="@dimen/padding_big"
+        android:layout_marginTop="@dimen/margin_big"
+        android:background="@color/design_default_color_on_primary">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="you are not sign in"
+            android:text="@string/you_are_not_sign_in"
             android:layout_marginBottom="@dimen/margin_normal"/>
         <Button
             android:id="@+id/btn_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign In"/>
+            android:text="@string/sign_in"/>
     </LinearLayout>
 </LinearLayout>

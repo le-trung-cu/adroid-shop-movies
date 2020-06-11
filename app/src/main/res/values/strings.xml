@@ -13,4 +13,6 @@
     <!--    facebook-->
     <string name="facebook_app_id">850653838760585</string>
     <string name="fb_login_protocol_scheme">fb850653838760585</string>
+    <string name="sign_in">Sign In</string>
+    <string name="you_are_not_sign_in">you are not sign in</string>
 </resources>

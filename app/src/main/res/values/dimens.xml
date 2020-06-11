@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_normal">15dp</dimen>
-    <dimen name="heading3">12dp</dimen>
+    <dimen name="heading3">12sp</dimen>
+    <dimen name="padding_btn">20dp</dimen>
+    <dimen name="img_detail_h">260dp</dimen>
+    <dimen name="img_detail_w">300dp</dimen>
+    <dimen name="margin_bottom_sign_in_btn">200dp</dimen>
+    <dimen name="margin_big">30dp</dimen>
+    <dimen name="grid_gutter">15dp</dimen>
+    <dimen name="photo_user_size">150dp</dimen>
+    <dimen name="margin_100">100dp</dimen>
+    <dimen name="padding_big">30dp</dimen>
+    <dimen name="iv_movie_height">260dp</dimen>
 </resources>

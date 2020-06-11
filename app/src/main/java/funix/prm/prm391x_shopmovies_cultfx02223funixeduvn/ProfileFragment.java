@@ -18,34 +18,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.clients.ImageClient;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.clients.ImageClientHelper;
 import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.models.User;
 
 public class ProfileFragment extends Fragment {
-    private User mUser;
     private TextView tvDisplayName;
     private TextView tvEmail;
     private ImageView ivImage;
     private LinearLayout llInfoUer;
     private LinearLayout llSignIn;
 
-    private OnSigOutListener mListener;
-
     public ProfileFragment() {
-    }
-
-    public static ProfileFragment newInstance() {
-        ProfileFragment fragment = new ProfileFragment();
-        return fragment;
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if(context instanceof OnSigOutListener){
-            mListener = (OnSigOutListener) context;
-        }
     }
 
     @Override
@@ -72,7 +59,21 @@ public class ProfileFragment extends Fragment {
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onSignOut();
+                User mCurrentUser = User.getCurrentUser(getActivity().getApplicationContext());
+                if (mCurrentUser.getAuthProvider().equals(User.GOOGLE_PROVIDER)) {
+                    User.SignOutGoogle(getActivity())
+                            .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    User.setCurrentUser(null,getActivity().getApplicationContext());
+                                    signIn();
+                                }
+                            });
+                }else if(mCurrentUser.getAuthProvider().equals(User.FACEBOOK_PROVIDER)) {
+                    LoginManager.getInstance().logOut();
+                    User.setCurrentUser(null,getActivity().getApplicationContext());
+                    signIn();
+                }
             }
         });
 
@@ -86,18 +87,23 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    private void signIn(){
+        Intent intent = new Intent(getActivity(), SignInActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        mUser = User.getCurrentUser(getActivity());
-        if(mUser != null){
+        User mCurrentUser = User.getCurrentUser(getActivity());
+        if(mCurrentUser != null){
 
-            tvDisplayName.setText(mUser.getDisplayName());
-            tvEmail.setText(mUser.getEmail());
+            tvDisplayName.setText(mCurrentUser.getDisplayName());
+            tvEmail.setText(mCurrentUser.getEmail());
             ImageClientHelper imageClientHelper = ImageClientHelper.getInstance();
-            if(!mUser.getPhotoUrl().isEmpty()){
+            if(!mCurrentUser.getPhotoUrl().isEmpty()){
                 try {
-                    imageClientHelper.fetch(mUser.getPhotoUrl(), new ImageClientHelper.OnImageLoad() {
+                    imageClientHelper.fetch(mCurrentUser.getPhotoUrl(), new ImageClientHelper.OnImageLoad() {
                         @Override
                         public void onLoad(Bitmap bitmap) {
                             ivImage.setImageBitmap(bitmap);
@@ -114,9 +120,5 @@ public class ProfileFragment extends Fragment {
             llInfoUer.setVisibility(View.GONE);
             llSignIn.setVisibility(View.VISIBLE);
         }
-    }
-
-    public interface OnSigOutListener{
-        void onSignOut();
     }
 }
