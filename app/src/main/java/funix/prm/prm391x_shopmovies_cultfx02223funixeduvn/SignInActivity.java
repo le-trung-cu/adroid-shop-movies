@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import funix.prm.prm391x_shopmovies_cultfx02223funixeduvn.models.User;
 
@@ -38,7 +39,7 @@ public class SignInActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager callbackManager;
     private LoginButton loginButton;
-
+    final static String TagSignInActivity  = "SignInActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +76,7 @@ public class SignInActivity extends AppCompatActivity {
     void registerFacebookSignIn() {
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        //loginButton.setReadPermissions("email");
+        loginButton.setReadPermissions("email");
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -126,6 +127,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onError(FacebookException exception) {
                 // App code
+                Log.d("TagSignInActivity", exception.getMessage());
             }
         });
     }
