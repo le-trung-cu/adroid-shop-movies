@@ -5,14 +5,18 @@
     <string name="profile">Profile</string>
 
     <!--    google-->
-    <string name="cid">7229447909-pbjgmpsr9gknf2k32cbb4usruksqs4vt.apps.googleusercontent.com</string>
-    <string name="sc">TvYKMGV-mq3_NzzF_6rv0l1O</string>
+    <!--    <string name="cid">7229447909-pbjgmpsr9gknf2k32cbb4usruksqs4vt.apps.googleusercontent.com</string>-->
+    <!--    <string name="sc">TvYKMGV-mq3_NzzF_6rv0l1O</string>-->
+        <string name="cid">526181721847-jcukb7qct0a93ncvvid8kqh2bhg2ac4d.apps.googleusercontent.com</string>
+        <string name="sc">CezImfOypAidSlpqnGGN7omG</string>
     <string name="sign_out">Sign Out</string>
     <string name="display_name">Display Name:</string>
     <string name="email">Email:</string>
     <!--    facebook-->
-    <string name="facebook_app_id">637546663524104</string>
-    <string name="fb_login_protocol_scheme">fb637546663524104</string>
+    <!--    <string name="facebook_app_id">637546663524104</string>-->
+    <!--    <string name="fb_login_protocol_scheme">fb637546663524104</string>-->
+    <string name="facebook_app_id">762798091204827</string>
+    <string name="fb_login_protocol_scheme">fb762798091204827</string>
 
     <string name="sign_in">Sign In</string>
     <string name="you_are_not_sign_in">you are not sign in</string>
